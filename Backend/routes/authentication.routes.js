@@ -3,11 +3,13 @@ const express = require("express");
 // call the router method from express
 const router = express.Router();
 // import the user controller
-const userController = require("../controller/authentication.controller");
+const authenticationController = require("../controller/authentication.controller");
 
-// define the user routes
+// define the register routes
+router.post("/register-user",authenticationController.registerUser);
+// define the login route
+router.post("/user-login", authenticationController.userLogin);
 
-router.post("/register-user", userController.registerUser);
 
 // export the router
 module.exports = router;

@@ -44,5 +44,37 @@ async function registerUser(req, res) {
   }
 }
 
+// create a function to login a user
+async function userLogin(req, res) {
+  // Get the data from the request body
+  const data = req.body;
+  // Check if the user exists in the database
+  const userExists = await userService.checkIfUsersExists(data.user_email);
+
+  if (userExists) {
+    // If the user exists, call the login function from the authentication service
+    const login = await authenticationService.userLogin(data);
+    console.log(login, "login")
+    if (login.status !== 200) {
+      // If the login is unsuccessful, send an error message to the client
+      res.status(400).json({
+        error: "Invalid email or password!",
+      });
+    } else {
+      // If the login is successful, send the user object to the client
+      res.status(200).json({
+        status: "true",
+        user: login.user,
+      });
+    }
+  } else {
+    // If the user does not exist, send an error message to the client
+    res.status(400).json({
+      error: "Invalid email or password!",
+    });
+  }
+}
+
+
 // export the registerUser function
-module.exports = { registerUser };
+module.exports = { registerUser, userLogin };

@@ -5,6 +5,7 @@ const crypto = require("crypto");
 // Import the bcrypt module
 const bcrypt = require("bcrypt");
 
+// Create the registerUser function
 async function registerUser(user) {
   let createdUser = {};
   try {
@@ -94,5 +95,48 @@ async function registerUser(user) {
   }
 }
 
+//create the login function
+async function userLogin(user) {
+  try {
+    // Get the user data from the user_identifier table
+    const query1 =
+      "SELECT user_identifier.*, user_info.user_first_name,user_info.user_last_name,user_info.user_phone_number,user_info.active_user_status, user_role.company_role_id, user_pass.user_password_hashed FROM user_identifier INNER JOIN  user_info ON user_identifier.user_id = user_info.user_id INNER JOIN  user_pass ON user_identifier.user_id = user_pass.user_id INNER JOIN user_role ON user_identifier.user_id = user_role.user_id WHERE user_identifier.user_email = ?";
+
+    // create the query to get the user data
+    const rows1 = await conn.query(query1, [user.user_email]);
+    if (rows1.length !== 1) {
+      return {
+        status: 400,
+        message: "Invalid email or password",
+      };
+    }
+
+    // // Construct the user object to return
+    const userObject = {
+      user_id: rows1[0].user_id,
+      user_name: rows1[0].user_name,
+      user_email: rows1[0].user_email,
+      user_first_name: rows1[0].user_first_name,
+      user_last_name: rows1[0].user_last_name,
+      user_phone_number: rows1[0].user_phone_number,
+      active_user_status: rows1[0].active_user_status,
+      user_role_id: rows1[0].company_role_id,
+      user_hash: rows1[0].user_hash,
+      user_added_date: rows1[0].user_added_date,
+    };
+
+    return {
+      status: 200,
+      user: userObject,
+      message: "User logged in successfully",
+    };
+  } catch (error) {
+    return {
+      status: 500,
+      message: "Failed to login user",
+    };
+  }
+}
+
 // Export the functions for use in the controller
-module.exports = { registerUser };
+module.exports = { registerUser, userLogin };

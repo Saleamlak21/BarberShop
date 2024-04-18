@@ -7,7 +7,6 @@ async function checkIfUsersExists(email) {
     console.log(email)
   const query = "SELECT * FROM user_identifier WHERE user_email = ?";
   const rows = await conn.query(query, [email]);
-  console.log(rows);
   return rows.length > 0;
 }
 
