@@ -2,6 +2,8 @@
 const express = require("express");
 const cors = require("cors");
 const http = require("http");
+// Import the dotenv module and call the config method to load the environment variables
+require("dotenv").config();
 // import server from socket.io
 const { Server } = require("socket.io");
 // Import the sanitizer module

@@ -1,5 +1,10 @@
+// import the user service
 const userService = require("../services/user.service");
+// import the authentication service
 const authenticationService = require("../services/authentication.service");
+//import jwt
+const jwt = require("jsonwebtoken");
+const jwtSecret = process.env.JWT_SECRET;
 
 // create a function to register a user
 async function registerUser(req, res) {
@@ -54,17 +59,27 @@ async function userLogin(req, res) {
   if (userExists) {
     // If the user exists, call the login function from the authentication service
     const login = await authenticationService.userLogin(data);
-    console.log(login, "login")
+    console.log(login, "login");
     if (login.status !== 200) {
       // If the login is unsuccessful, send an error message to the client
       res.status(400).json({
         error: "Invalid email or password!",
       });
     } else {
-      // If the login is successful, send the user object to the client
+      const payLoad = {
+        user_id: login.user.user_id,
+        user_email: login.user.user_email,
+        user_role: login.user.user_role_id,
+      };
+      // If the login is successful, create a token for the user
+      const token = jwt.sign(payLoad, jwtSecret, {
+        expiresIn: "24h",
+      });
+      // Send the token to the client
       res.status(200).json({
         status: "true",
-        user: login.user,
+        user_name: login.user.user_name,
+        token: token,
       });
     }
   } else {
@@ -74,7 +89,6 @@ async function userLogin(req, res) {
     });
   }
 }
-
 
 // export the registerUser function
 module.exports = { registerUser, userLogin };
