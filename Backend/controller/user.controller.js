@@ -44,9 +44,35 @@ async function getUserById(req,res){
         return res.status(500).json(err);
     }
 }
+// create a function to edit a user
+async function editUser(req,res){
+    try{
+        // get the user id from the request
+        const id = req.params.id;
+        // get the user data from the request
+        const data = req.body;
+     
+        // edit the user
+        const user = await userService.editUser(id,data);
+
+        if(user){
+            // return the user
+            return res.status(200).json(user);
+        }
+        else{
+            // return a message
+            return res.status(404).json("User not found");
+        }
+    }
+    catch(err){
+        // return an error message
+        return res.status(500).json(err);
+    }
+}
 
 // export the function
 module.exports = {
     getUsers,
-    getUserById
+    getUserById,
+    editUser
 }

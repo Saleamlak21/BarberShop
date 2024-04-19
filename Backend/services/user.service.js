@@ -1,70 +1,101 @@
 //import the database connection
 const conn = require("../config/db.config");
 
-
 // Create the functions if the customer exists and to create the customer
 async function checkIfUsersExists(email) {
-    console.log(email)
+  console.log(email);
   const query = "SELECT * FROM user_identifier WHERE user_email = ?";
   const rows = await conn.query(query, [email]);
   return rows.length > 0;
 }
 
 // create a function to get all users
-async function getUsers(req,res){
-    try{
-        // get all users from the database
-        const users = await conn.query("SELECT * FROM user_identifier INNER JOIN user_info ON user_identifier.user_id = user_info.user_id");
-        console.log(users)
-        if(users){
-            // return the users
-            return {
-                status: 200,
-                data: users
-            }
-        }
-        else{
-            // return a message
-            return res.status(404).json("No users found");
-        }
-
+async function getUsers(req, res) {
+  try {
+    // get all users from the database
+    const users = await conn.query(
+      "SELECT * FROM user_identifier INNER JOIN user_info ON user_identifier.user_id = user_info.user_id"
+    );
+    console.log(users);
+    if (users) {
+      // return the users
+      return {
+        status: 200,
+        data: users,
+      };
+    } else {
+      // return a message
+      return res.status(404).json("No users found");
     }
-    catch(err){
-        // return an error message
-        return res.status(500).json(err);
-    }
-
+  } catch (err) {
+    // return an error message
+    return res.status(500).json(err);
+  }
 }
 
 // create a function to get a single user
-async function getUserById(id){
-    try{
-       
-        // get the user
-        const query = "SELECT * FROM user_identifier INNER JOIN user_info ON user_identifier.user_id = user_info.user_id WHERE user_identifier.user_id = ?";
-        const rows = await conn.query(query, [id]);
+async function getUserById(id) {
+  try {
+    // get the user
+    const query =
+      "SELECT * FROM user_identifier INNER JOIN user_info ON user_identifier.user_id = user_info.user_id WHERE user_identifier.user_id = ?";
+    const rows = await conn.query(query, [id]);
 
-        if(rows.length > 0){
-            // return the user
-            return {
-                status: 200,
-                data: rows
-            }
-        }
-        else{
-            // return a message
-            return {
-                status: 404,
-                data: "User not found"
-            }
-        } 
-        
+    if (rows.length > 0) {
+      // return the user
+      return {
+        status: 200,
+        data: rows,
+      };
+    } else {
+      // return a message
+      return {
+        status: 404,
+        data: "User not found",
+      };
     }
-    catch(err){
-        // return an error message
-        return res.status(500).json(err);
-    }
+  } catch (err) {
+    // return an error message
+    return res.status(500).json(err);
+  }
+}
+
+// create a function to edit a user
+async function editUser(id, data) {
+  try {
+
+    // get the user data from the request
+    const userData = data;
+    console.log(userData, "userData")
+    // edit the user
+    const query =
+      "UPDATE user_identifier INNER JOIN user_info ON user_identifier.user_id = user_info.user_id SET user_identifier.user_name = ?, user_info.user_first_name = ?, user_info.user_last_name = ?, user_info.user_phone_number = ?, user_info.active_user_status = ? WHERE user_identifier.user_id = ?";
+    const user = await conn.query(query, [
+      userData.user_name,
+      userData.user_first_name,
+      userData.user_last_name,
+      userData.user_phone_number,
+      userData.active_user_status,
+      id,
+    ]);
+    console.log(user, "user")
+   
+    if (user.affectedRows > 0) {
+        return {
+          status: 200,
+          data: "User updated successfully",
+        };
+      } else {
+        return {
+          status: 404,
+          data: "User not found",
+        };
+      }
+  } catch (err) {
+    // return an error message
+    return res.status(500).json(err);
+  }
 }
 
 //export the function
-module.exports = { checkIfUsersExists, getUsers, getUserById};
+module.exports = { checkIfUsersExists, getUsers, getUserById, editUser };

@@ -9,6 +9,8 @@ const userController = require("../controller/user.controller");
 router.get("/api/get-users",userController.getUsers);
 // define the a route to get a single user
 router.get("/api/get-user/:id",userController.getUserById);
+// define the route to edit a user
+router.put("/api/edit-user/:id",userController.editUser);
 
 
 // export the router
