@@ -10,5 +10,61 @@ async function checkIfUsersExists(email) {
   return rows.length > 0;
 }
 
+// create a function to get all users
+async function getUsers(req,res){
+    try{
+        // get all users from the database
+        const users = await conn.query("SELECT * FROM user_identifier INNER JOIN user_info ON user_identifier.user_id = user_info.user_id");
+        console.log(users)
+        if(users){
+            // return the users
+            return {
+                status: 200,
+                data: users
+            }
+        }
+        else{
+            // return a message
+            return res.status(404).json("No users found");
+        }
+
+    }
+    catch(err){
+        // return an error message
+        return res.status(500).json(err);
+    }
+
+}
+
+// create a function to get a single user
+async function getUserById(id){
+    try{
+       
+        // get the user
+        const query = "SELECT * FROM user_identifier INNER JOIN user_info ON user_identifier.user_id = user_info.user_id WHERE user_identifier.user_id = ?";
+        const rows = await conn.query(query, [id]);
+
+        if(rows.length > 0){
+            // return the user
+            return {
+                status: 200,
+                data: rows
+            }
+        }
+        else{
+            // return a message
+            return {
+                status: 404,
+                data: "User not found"
+            }
+        } 
+        
+    }
+    catch(err){
+        // return an error message
+        return res.status(500).json(err);
+    }
+}
+
 //export the function
-module.exports = { checkIfUsersExists };
+module.exports = { checkIfUsersExists, getUsers, getUserById};
