@@ -62,25 +62,59 @@ async function getUserById(id) {
 
 // create a function to edit a user
 async function editUser(id, data) {
-  try {
-
-    // get the user data from the request
-    const userData = data;
-    console.log(userData, "userData")
-    // edit the user
-    const query =
-      "UPDATE user_identifier INNER JOIN user_info ON user_identifier.user_id = user_info.user_id SET user_identifier.user_name = ?, user_info.user_first_name = ?, user_info.user_last_name = ?, user_info.user_phone_number = ?, user_info.active_user_status = ? WHERE user_identifier.user_id = ?";
-    const user = await conn.query(query, [
-      userData.user_name,
-      userData.user_first_name,
-      userData.user_last_name,
-      userData.user_phone_number,
-      userData.active_user_status,
-      id,
-    ]);
-    console.log(user, "user")
-   
-    if (user.affectedRows > 0) {
+    try {
+      const userData = data;
+      let query =
+        "UPDATE user_identifier INNER JOIN user_info ON user_identifier.user_id = user_info.user_id SET ";
+  
+      const queryParams = [];
+      const updateFields = [];
+  
+      if (userData.user_name !== undefined && userData.user_name !== null) {
+        updateFields.push("user_identifier.user_name = ?");
+        queryParams.push(userData.user_name);
+      }
+  
+      if (userData.user_first_name !== undefined && userData.user_first_name !== null) {
+        updateFields.push("user_info.user_first_name = ?");
+        queryParams.push(userData.user_first_name);
+      }
+  
+      if (userData.user_last_name !== undefined && userData.user_last_name !== null) {
+        updateFields.push("user_info.user_last_name = ?");
+        queryParams.push(userData.user_last_name);
+      }
+  
+      if (userData.user_phone_number !== undefined && userData.user_phone_number !== null) {
+        updateFields.push("user_info.user_phone_number = ?");
+        queryParams.push(userData.user_phone_number);
+      }
+  
+      if (userData.user_rate !== undefined && userData.user_rate !== null) {
+        updateFields.push("user_info.user_rate = ?");
+        queryParams.push(userData.user_rate);
+      }
+  
+      if (userData.active_user_status !== undefined && userData.active_user_status !== null) {
+        updateFields.push("user_info.active_user_status = ?");
+        queryParams.push(userData.active_user_status);
+      }
+  
+      if (updateFields.length === 0) {
+        // No valid fields to update
+        return {
+          status: 400,
+          data: "No valid fields to update",
+        };
+      }
+  
+      query += updateFields.join(", ");
+      query += " WHERE user_identifier.user_id = ?";
+      queryParams.push(id);
+  
+      const user = await conn.query(query, queryParams);
+  
+      if (user.affectedRows > 0) {
         return {
           status: 200,
           data: "User updated successfully",
@@ -91,11 +125,13 @@ async function editUser(id, data) {
           data: "User not found",
         };
       }
-  } catch (err) {
-    // return an error message
-    return res.status(500).json(err);
+    } catch (err) {
+      // handle the error appropriately, e.g., log it or throw it
+      console.error(err);
+      throw err;
+    }
   }
-}
+  
 
 //export the function
 module.exports = { checkIfUsersExists, getUsers, getUserById, editUser };

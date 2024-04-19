@@ -40,12 +40,13 @@ async function registerUser(user) {
 
     // Insert the remaining data into the user_info table
     const query2 =
-      "INSERT INTO user_info(user_id, user_first_name, user_last_name,user_phone_number,active_user_status) VALUES (?,?,?,?,?)";
+      "INSERT INTO user_info(user_id, user_first_name, user_last_name,user_phone_number,user_rate,active_user_status) VALUES (?,?,?,?,?,?)";
     const rows2 = await conn.query(query2, [
       user_id,
       user.user_first_name,
       user.user_last_name,
       user.user_phone_number,
+      user.user_rate,
       user.active_user_status,
     ]);
 

@@ -33,6 +33,7 @@ CREATE TABLE IF NOT EXISTS `user_info` (
   `user_first_name` varchar(255) NOT NULL,
   `user_last_name` varchar(255) NOT NULL,
   `user_phone_number` varchar(255) NOT NULL,
+  `user_rate` varchar(255) NOT NULL,
   `active_user_status` varchar(255) NOT NULL,
   PRIMARY KEY (user_info_id),
   FOREIGN KEY (user_id) REFERENCES user_identifier(user_id)
@@ -105,8 +106,8 @@ VALUES ('admin@admin.com', 'Admin','$yvl4hE10$B6y$2b$10$B6yvl4hECXploM', CURRENT
 INSERT INTO company_roles (company_role_name)
 VALUES ('Employee'), ('Customer'), ('Admin');
 
-INSERT INTO user_info (user_id, user_first_name, user_last_name, user_phone_number, active_user_status)
-VALUES (1, 'Admin', 'Admin', '555-555-5555', 1); 
+INSERT INTO user_info (user_id, user_first_name, user_last_name, user_phone_number,user_rate, active_user_status)
+VALUES (1, 'Admin', 'Admin', '555-555-5555',5, 1); 
 
 -- Password is 123456
 INSERT INTO user_pass (user_id,user_password_hashed	)
