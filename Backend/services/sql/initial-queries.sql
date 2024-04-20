@@ -57,45 +57,39 @@ CREATE TABLE IF NOT EXISTS `user_role` (
 ) ENGINE=InnoDB;
 
 -- Order tables  
--- CREATE TABLE IF NOT EXISTS `appointments` (
---   `appointment_id` int(11) NOT NULL AUTO_INCREMENT,
---   `user_id` int(11) NOT NULL,
---   `service_id` int(11) NOT NULL,
---   `appointment_date` varchar(255) NOT NULL,
+CREATE TABLE IF NOT EXISTS `appointments` (
+  `appointment_id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `service_id` int(11) NOT NULL,
+  `company_role_id` int(11) NOT NULL,
+  `appointment_date` varchar(255) NOT NULL,
+  `additional_request` varchar(255) NOT NULL,
 --   `appointment_duration` varchar(255) NOT null,
--- --   `order_date` DATETIME DEFAULT CURRENT_TIMESTAMP,
 --   `appointment_hash` varchar(255) NOT NULL,
---   PRIMARY KEY (appointment_id),
---   FOREIGN KEY (user_id) REFERENCES user_identifier(user_id),
---   FOREIGN KEY (service_id) REFERENCES common_services(service_id)
--- ) ENGINE=InnoDB;
+  PRIMARY KEY (appointment_id),
+  FOREIGN KEY (user_id) REFERENCES user_identifier(user_id),
+  FOREIGN KEY (service_id) REFERENCES common_services(service_id)
+) ENGINE=InnoDB;
 
--- CREATE TABLE IF NOT EXISTS `appointment_info` (
---   `appointment_info_id` int(11) NOT NULL AUTO_INCREMENT,
---   `appointment_id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `appointment_info` (
+  `appointment_info_id` int(11) NOT NULL AUTO_INCREMENT,
+  `appointment_id` int(11) NOT NULL,
 --   `appointment_total_price` int(11) NOT NULL,
---   `appointmetn_status` varchar(255) NOT NULL,
---   `payment_status` varchar(255) NOT NULL,
--- --   `completion_date` DATETIME,
--- --   `additional_request` TEXT,
--- --   `notes_for_internal_use` TEXT,
--- --   `notes_for_customer` TEXT,
--- --   `additional_requests_completed` int(11) NOT NULL,
---   PRIMARY KEY (appointment_info_id),
---   FOREIGN KEY (appointment_id) REFERENCES appointments(appointment_id)
--- ) ENGINE=InnoDB;
+   `appointment_completed` int(11) NOT NULL,
+   `appointment_cancelled` int(11) NOT NULL,
+  PRIMARY KEY (appointment_info_id),
+  FOREIGN KEY (appointment_id) REFERENCES appointments(appointment_id)
+) ENGINE=InnoDB;
 
--- CREATE TABLE IF NOT EXISTS `appointment-additional-info` (
---   `appointment-additional-id` int(11) NOT NULL AUTO_INCREMENT,
---   `appointment_id` int(11) NOT NULL,
---   `booking_timestamp` DATETIME DEFAULT CURRENT_TIMESTAMP,
---   `appointment_type` int(11) NOT NULL,
---   `additional_request` TEXT,
---   PRIMARY KEY (appointment-additional-id),
---  FOREIGN KEY (appointment_id) REFERENCES appointments(appointment_id)
--- ) ENGINE=InnoDB;
-
-
+ -- Create tables for reviews
+CREATE TABLE IF NOT EXISTS `reviews` (
+  `review_id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `review_rating` int(11) NOT NULL,
+  `review_comment` TEXT,
+  PRIMARY KEY (review_id),
+  FOREIGN KEY (user_id) REFERENCES user_identifier(user_id)
+) ENGINE=InnoDB;
 
 
 -- This is the admin account 

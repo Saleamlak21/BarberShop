@@ -10,6 +10,8 @@ const authenticationRoutes = require("./authentication.routes");
 const userRoutes = require("./user.routes");
 // import the service routes
 const serviceRoutes = require("./service.routes");
+// import the appointment routes
+const appointmentRoutes = require("./appointment.routes");
 
 // define the install route
 router.use(installRoutes);
@@ -19,6 +21,8 @@ router.use(authenticationRoutes);
 router.use(userRoutes);
 // define the service routes
 router.use(serviceRoutes);
+// define the appointment routes
+router.use(appointmentRoutes);
 
 // export the router
 module.exports = router;
