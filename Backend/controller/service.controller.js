@@ -96,7 +96,7 @@ async function updateService(req, res) {
   const data = req.body;
   try {
     // Call the update service function from the service service
-    const updatedService = await service.updateService( data,id);
+    const updatedService = await service.updateService(data, id);
     // Check if the service was updated
     if (updatedService.status !== 200) {
       // If the service was not updated, send a message to the client
@@ -118,10 +118,39 @@ async function updateService(req, res) {
   }
 }
 
+// create a function to delete a service
+async function deleteService(req, res) {
+  // Get the service id from the request parameters
+  const id = req.params.id;
+  try {
+    // Call the delete service function from the service service
+    const deletedService = await service.deleteService(id);
+    // Check if the service was deleted
+    if (deletedService.status !== 200) {
+      // If the service was not deleted, send a message to the client
+      res.status(400).json({
+        message: "Failed to delete the service!",
+      });
+    } else {
+      // If the service was deleted, send a message to the client
+      res.status(200).json({
+        status: "true",
+        message: "Service deleted successfully!",
+      });
+    }
+  } catch (error) {
+    // If an error occurs, send an error message to the client
+    res.status(400).json({
+      error: "Something went wrong!",
+    });
+  }
+}
+
 // export the functions
 module.exports = {
   createService,
   getServices,
   getServiceById,
   updateService,
+  deleteService,
 };

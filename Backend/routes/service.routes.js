@@ -13,6 +13,8 @@ router.get("/api/get-services",serviceController.getServices);
 router.get("/api/get-service/:id",serviceController.getServiceById);
 // define the a route to update a service
 router.put("/api/update-service/:id",serviceController.updateService);
+// define the a route to delete a service
+router.delete("/api/delete-service/:id",serviceController.deleteService);
 
 
 

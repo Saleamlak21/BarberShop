@@ -101,73 +101,93 @@ async function getServiceById(id) {
 
 // Create a function to update a service
 async function updateService(data, id) {
- 
-    try {
+  try {
+    // Query to update the service
+    let query = "UPDATE common_services SET ";
+    const queryData = [];
+    const updateData = [];
 
-      // Query to update the service
-      let query = "UPDATE common_services SET ";
-      const queryData = [];
-      const updateData = [];
-   
-      // Check if the service name is provided
-      if (data.service_name !== undefined && data.service_name !== null) {
-        updateData.push("service_name = ?");
-        queryData.push(data.service_name);
-      }
-
-      // Check if the service description is provided
-      if (
-        data.service_description !== undefined &&
-        data.service_description !== null
-      ) {
-        updateData.push("service_description = ?");
-        queryData.push(data.service_description);
-      }
-  
-      // Check if the service price is provided
-      if (data.service_price !== undefined && data.service_price !== null) {
-        updateData.push("service_price = ?");
-        queryData.push(data.service_price);
-      }
-  
-      // Return a 400 status if no update data is provided
-      if (updateData.length === 0) {
-        return {
-          status: 400,
-          error: "No update data provided!",
-        };
-      }
-  
-      // Add the update data to the query
-      query += updateData.join(", ");
-      query += " WHERE service_id = ?";
-      // Add the service id to the query data
-      queryData.push(id);
-
-  console.log(query, queryData)
-      // Execute the query
-      const rows = await conn.query(query, queryData);
-  
-      // Return the updated service
-      if (rows.affectedRows > 0) {
-        return {
-          status: 200,
-          data: data,
-        };
-      } else {
-        return {
-          status: 400,
-          error: "Failed to update the service!",
-        };
-      }
-    } catch (err) {
-      // Return an error message if an error occurs
-      console.error("Error updating service:", err);
-      throw err;
+    // Check if the service name is provided
+    if (data.service_name !== undefined && data.service_name !== null) {
+      updateData.push("service_name = ?");
+      queryData.push(data.service_name);
     }
+
+    // Check if the service description is provided
+    if (
+      data.service_description !== undefined &&
+      data.service_description !== null
+    ) {
+      updateData.push("service_description = ?");
+      queryData.push(data.service_description);
+    }
+
+    // Check if the service price is provided
+    if (data.service_price !== undefined && data.service_price !== null) {
+      updateData.push("service_price = ?");
+      queryData.push(data.service_price);
+    }
+
+    // Return a 400 status if no update data is provided
+    if (updateData.length === 0) {
+      return {
+        status: 400,
+        error: "No update data provided!",
+      };
+    }
+
+    // Add the update data to the query
+    query += updateData.join(", ");
+    query += " WHERE service_id = ?";
+    // Add the service id to the query data
+    queryData.push(id);
+
+    // Execute the query
+    const rows = await conn.query(query, queryData);
+
+    // Return the updated service
+    if (rows.affectedRows > 0) {
+      return {
+        status: 200,
+        data: data,
+      };
+    } else {
+      return {
+        status: 400,
+        error: "Failed to update the service!",
+      };
+    }
+  } catch (err) {
+    // Return an error message if an error occurs
+    console.error("Error updating service:", err);
+    throw err;
   }
-  
-  
+}
+
+// create a function to delete a service
+async function deleteService(id) {
+  try {
+    // Query to delete the service
+    const query = "DELETE FROM common_services WHERE service_id = ?";
+    // Execute the query
+    const rows = await conn.query(query, [id]);
+    // Return a success message if the service was deleted
+    if (rows.affectedRows > 0) {
+      return {
+        status: 200,
+        data: "Service deleted successfully",
+      };
+    } else {
+      return {
+        status: 404,
+        data: "Service not found",
+      };
+    }
+  } catch (err) {
+    // Return an error message if an error occurs
+    return err;
+  }
+}
 
 //export the functions
 module.exports = {
@@ -176,4 +196,5 @@ module.exports = {
   getServices,
   getServiceById,
   updateService,
+  deleteService,
 };
