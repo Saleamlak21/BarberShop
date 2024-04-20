@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS `common_services` (
   `service_id` int(11) NOT NULL AUTO_INCREMENT,
   `service_name` varchar(255) NOT NULL,
   `service_description` TEXT,
-  `servive_price` varchar(255) NOT NULL,
+  `service_price` varchar(255) NOT NULL,
   PRIMARY KEY (service_id)
 ) ENGINE=InnoDB;
 

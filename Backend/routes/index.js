@@ -8,6 +8,8 @@ const installRoutes = require("./install.routes");
 const authenticationRoutes = require("./authentication.routes");
 // import the user routes
 const userRoutes = require("./user.routes");
+// import the service routes
+const serviceRoutes = require("./service.routes");
 
 // define the install route
 router.use(installRoutes);
@@ -15,6 +17,8 @@ router.use(installRoutes);
 router.use(authenticationRoutes);
 // define the user routes
 router.use(userRoutes);
+// define the service routes
+router.use(serviceRoutes);
 
 // export the router
 module.exports = router;

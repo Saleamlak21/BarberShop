@@ -130,7 +130,7 @@ async function editUser(id, data) {
       console.error(err);
       throw err;
     }
-  }
+}
   
 
 //export the function
