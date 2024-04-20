@@ -1,4 +1,4 @@
-// import service sercice 
+// import service sercice
 const service = require("../services/service.service");
 
 // create a function to create a service
@@ -37,7 +37,61 @@ async function createService(req, res) {
   }
 }
 
+// create a function to get all services
+async function getServices(req, res) {
+  try {
+    // Call the get services function from the service service
+    const services = await service.getServices();
+    // Check if the services were found
+    if (services.status !== 200) {
+      // If no services were found, send a message to the client
+      res.status(404).json({
+        message: "No services found!",
+      });
+    } else {
+      // If services were found, send them to the client
+      res.status(200).json({
+        services: services.data,
+      });
+    }
+  } catch (error) {
+    // If an error occurs, send an error message to the client
+    res.status(400).json({
+      error: "Something went wrong!",
+    });
+  }
+}
+// create a function to get a single service
+async function getServiceById(req, res) {
+  // Get the service id from the request parameters
+  const id = req.params.id;
+  try {
+    // Call the get service by id function from the service service
+    const singleService = await service.getServiceById(id);
+    console.log(singleService)
+    // Check if the service was found
+    if (singleService.status !== 200) {
+      // If the service was not found, send a message to the client
+      res.status(404).json({
+        message: "Service not found!",
+      });
+    } else {
+      // If the service was found, send it to the client
+      res.status(200).json({
+        service: singleService.data,
+      });
+    }
+  } catch (error) {
+    // If an error occurs, send an error message to the client
+    res.status(400).json({
+      error: "Something went wrong!",
+    });
+  }
+}
+
 // export the functions
 module.exports = {
   createService,
+  getServices,
+  getServiceById,
 };

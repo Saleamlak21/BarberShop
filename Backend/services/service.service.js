@@ -2,7 +2,6 @@
 const conn = require("../config/db.config");
 
 // Create the functions to check if the service exists by service name
-
 async function checkIfServiceExists(service_name) {
   try {
     // Query to check if the service exists
@@ -30,7 +29,7 @@ async function createService(data) {
       data.service_discription,
       data.service_price,
     ]);
-    console.log(rows, data)
+    console.log(rows, data);
     // Return the created service
     if (rows.affectedRows > 0) {
       return {
@@ -49,8 +48,61 @@ async function createService(data) {
   }
 }
 
+// Create a function to get all services
+async function getServices() {
+  try {
+    // Query to get all services
+    const query = "SELECT * FROM common_services";
+    // Execute the query
+    const rows = await conn.query(query);
+    // Return the services
+    if (rows.length > 0) {
+      return {
+        status: 200,
+        data: rows,
+      };
+    } else {
+      return {
+        status: 404,
+        data: "No services found",
+      };
+    }
+  } catch (err) {
+    // Return an error message if an error occurs
+    return err;
+  }
+}
+
+// Create a function to get a single service
+async function getServiceById(id) {
+  try {
+    console.log(id)
+    // Query to get the service by id
+    const query = "SELECT * FROM common_services WHERE service_id = ?";
+    // Execute the query
+    const rows = await conn.query(query, [id]);
+    // Return the service
+    if (rows.length > 0) {
+      return {
+        status: 200,
+        data: rows,
+      };
+    } else {
+      return {
+        status: 404,
+        data: "Service not found",
+      };
+    }
+  } catch (err) {
+    // Return an error message if an error occurs
+    return err;
+  }
+}
+
 //export the functions
 module.exports = {
   checkIfServiceExists,
   createService,
+  getServices,
+  getServiceById,
 };
