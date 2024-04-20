@@ -36,7 +36,6 @@ async function createService(req, res) {
     }
   }
 }
-
 // create a function to get all services
 async function getServices(req, res) {
   try {
@@ -68,7 +67,7 @@ async function getServiceById(req, res) {
   try {
     // Call the get service by id function from the service service
     const singleService = await service.getServiceById(id);
-    console.log(singleService)
+    console.log(singleService);
     // Check if the service was found
     if (singleService.status !== 200) {
       // If the service was not found, send a message to the client
@@ -89,9 +88,40 @@ async function getServiceById(req, res) {
   }
 }
 
+// create a function to update a service
+async function updateService(req, res) {
+  // Get the service id from the request parameters
+  const id = req.params.id;
+  // Get the data from the request body
+  const data = req.body;
+  try {
+    // Call the update service function from the service service
+    const updatedService = await service.updateService( data,id);
+    // Check if the service was updated
+    if (updatedService.status !== 200) {
+      // If the service was not updated, send a message to the client
+      res.status(400).json({
+        message: "Failed to update the service!",
+      });
+    } else {
+      // If the service was updated, send a message to the client
+      res.status(200).json({
+        status: "true",
+        message: "Service updated successfully!",
+      });
+    }
+  } catch (error) {
+    // If an error occurs, send an error message to the client
+    res.status(400).json({
+      error: "Something went wrong!",
+    });
+  }
+}
+
 // export the functions
 module.exports = {
   createService,
   getServices,
   getServiceById,
+  updateService,
 };

@@ -11,6 +11,8 @@ router.post("/api/create-service",serviceController.createService);
 router.get("/api/get-services",serviceController.getServices);
 // define the a route to get a single service
 router.get("/api/get-service/:id",serviceController.getServiceById);
+// define the a route to update a service
+router.put("/api/update-service/:id",serviceController.updateService);
 
 
 

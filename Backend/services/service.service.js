@@ -76,7 +76,7 @@ async function getServices() {
 // Create a function to get a single service
 async function getServiceById(id) {
   try {
-    console.log(id)
+    console.log(id);
     // Query to get the service by id
     const query = "SELECT * FROM common_services WHERE service_id = ?";
     // Execute the query
@@ -99,10 +99,81 @@ async function getServiceById(id) {
   }
 }
 
+// Create a function to update a service
+async function updateService(data, id) {
+ 
+    try {
+
+      // Query to update the service
+      let query = "UPDATE common_services SET ";
+      const queryData = [];
+      const updateData = [];
+   
+      // Check if the service name is provided
+      if (data.service_name !== undefined && data.service_name !== null) {
+        updateData.push("service_name = ?");
+        queryData.push(data.service_name);
+      }
+
+      // Check if the service description is provided
+      if (
+        data.service_description !== undefined &&
+        data.service_description !== null
+      ) {
+        updateData.push("service_description = ?");
+        queryData.push(data.service_description);
+      }
+  
+      // Check if the service price is provided
+      if (data.service_price !== undefined && data.service_price !== null) {
+        updateData.push("service_price = ?");
+        queryData.push(data.service_price);
+      }
+  
+      // Return a 400 status if no update data is provided
+      if (updateData.length === 0) {
+        return {
+          status: 400,
+          error: "No update data provided!",
+        };
+      }
+  
+      // Add the update data to the query
+      query += updateData.join(", ");
+      query += " WHERE service_id = ?";
+      // Add the service id to the query data
+      queryData.push(id);
+
+  console.log(query, queryData)
+      // Execute the query
+      const rows = await conn.query(query, queryData);
+  
+      // Return the updated service
+      if (rows.affectedRows > 0) {
+        return {
+          status: 200,
+          data: data,
+        };
+      } else {
+        return {
+          status: 400,
+          error: "Failed to update the service!",
+        };
+      }
+    } catch (err) {
+      // Return an error message if an error occurs
+      console.error("Error updating service:", err);
+      throw err;
+    }
+  }
+  
+  
+
 //export the functions
 module.exports = {
   checkIfServiceExists,
   createService,
   getServices,
   getServiceById,
+  updateService,
 };
