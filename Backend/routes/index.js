@@ -12,6 +12,8 @@ const userRoutes = require("./user.routes");
 const serviceRoutes = require("./service.routes");
 // import the appointment routes
 const appointmentRoutes = require("./appointment.routes");
+// import the review routes
+const reviewRoutes = require("./reviews.routes");
 
 // define the install route
 router.use(installRoutes);
@@ -23,6 +25,8 @@ router.use(userRoutes);
 router.use(serviceRoutes);
 // define the appointment routes
 router.use(appointmentRoutes);
+// define the review routes
+router.use(reviewRoutes);
 
 // export the router
 module.exports = router;
