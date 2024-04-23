@@ -3,7 +3,7 @@ import { IoIosCut } from "react-icons/io";
 
 const AboutUs = () => {
   return (
-    <div className=" my-32 p-3">
+    <div className=" mt-32 p-3">
       <div>
         <div className="text-container">
           <div>
