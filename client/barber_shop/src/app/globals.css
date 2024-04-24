@@ -38,3 +38,11 @@ body {
 .font{
     font-family: 'Bebas Neue', cursive;
 }
+
+.login {
+    background-image: url("../../public/assets/home/lina-verovaya-N4njM45mXFM-unsplash.jpg");
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
