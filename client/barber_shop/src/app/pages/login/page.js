@@ -201,7 +201,7 @@ const page = () => {
               {loginError && (
                 <p className="text-red-400 text-xs italic">{loginError}</p>
               )}
-              <button className=" bg-[#14100c] text-white 11/12 h-12 font-bold tracking-wider">
+              <button className=" bg-[#14100c] text-white 11/12 h-12 font-bold tracking- z-[999]">
                 Login
               </button>
             </form>
@@ -290,7 +290,7 @@ const page = () => {
                 className=" text-sm  h-12 w-11/12 px-5 border italic outline-none focus-visible:scale-100 s  "
                 required
               />
-              <button className=" bg-[#14100c] text-white w-11/12 h-12 font-bold tracking-wider">
+              <button className=" z-[999] bg-[#14100c] text-white w-11/12 h-12 font-bold tracking-wider">
                 Register
               </button>
             </form>
