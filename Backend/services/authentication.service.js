@@ -108,7 +108,22 @@ async function userLogin(user) {
     if (rows1.length !== 1) {
       return {
         status: 400,
-        message: "Invalid email or password",
+        message: "Incorrect email address",
+      };
+    }
+
+    // Compare the password
+    const validPassword = await bcrypt.compare(
+      user.user_password,
+      rows1[0].user_password_hashed
+    );
+
+
+    if (!validPassword) {
+      return {
+        status: 400,
+        code: "INCORRECT_PASSWORD",
+        message: "Incorrect password ",
       };
     }
 

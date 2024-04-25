@@ -14,11 +14,16 @@ const router = require("./routes/index");
 // Creating an express app
 const app = express();
 // Using cors
-// app.use(cors());
+app.use(cors());
 // Creating a server
 const server = http.createServer(app);
 // Creating an instance of socket.io
-const io = new Server(server, { cors: { origin: "*" } });
+const io = new Server(server, {
+  cors: {
+    // allow all origins
+    origin: "*",
+  },
+});
 // Add the express.json middleware to the application
 app.use(express.json());
 // add sanitization middleware
@@ -34,4 +39,3 @@ server.listen(3001, () => {
 
 // Export the webserver for use in the application
 module.exports = app;
-
