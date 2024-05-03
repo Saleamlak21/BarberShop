@@ -3,9 +3,9 @@ import { IoIosCut } from "react-icons/io";
 
 const AboutUs = () => {
   return (
-    <div className=" mt-32 p-3">
-      <div>
-        <div className="text-container">
+    <div className=" pt-36 p-3 bg-[#dfe5eb] text-whit flex justify-center ">
+      <div className="md:w-10/12">
+        <div className="text-container mx-3">
           <div>
             <p className=" text-[#97836c] tracking-wider text-lg  font-bold ">
               SINCE 2012
@@ -27,55 +27,67 @@ const AboutUs = () => {
             </p>
           </div>
         </div>
-        <div className="image_container flex gap-4 mt-5">
-          <div className=" h-[400px] flex justify-center items-end ">
-            <img
-              style={{ height: 300 }}
-              src="/assets/home/salah-regouane-rM_ev_MroKA-unsplash.jpg"
-            />
-          </div>
-          <div className=" h-[400px]">
-            <img
-              style={{ height: 300 }}
-              src="/assets/home/juan-carlos-pavon-jQ7Fh1q97AU-unsplash.jpg"
-            />
-          </div>
-        </div>
-        <div className=" my-32 flex flex-col gap-9 ">
-          {/* -- */}
-          <div className=" flex gap-6">
-            <div className=" flex items-center justify-center align-middle">
-              <img  className=" font-bold  " src="/assets/icons/salon.png" />
+        <div className=" md:flex items-center gap-5 justify-center">
+          <div className="image_container flex flex-shrink-0 gap-4 mt-5">
+            <div className=" relative h-[400px] flex justify-center items-end ">
+                
+              <img
+              
+              className=" z-10"
+                style={{ height: 300 }}
+                src="/assets/home/salah-regouane-rM_ev_MroKA-unsplash.jpg"
+              />
             </div>
-            <div className=" flex flex-col gap-3">
-              <p className=" font-extrabold text-2xl">Cuts</p>
-              <p className=" text-gray-600 text-sm">
-              Haircut and styling tailored to the client's preferences, using various cutting techniques and tools for a personalized look.
-              </p>
+            <div className=" h-[400px]">
+                
+              <img
+                style={{ height: 300 }}
+                src="/assets/home/juan-carlos-pavon-jQ7Fh1q97AU-unsplash.jpg"
+              />
             </div>
           </div>
-          {/* -- */}
-          <div className=" flex gap-6">
-            <div className=" flex items-center justify-center align-middle">
-              <img  className=" font-bold  " src="/assets/icons/clipper.png" />
+          <div className=" mx-3 my-24 flex flex-col gap-9 ">
+            {/* -- */}
+            <div className=" flex gap-6">
+              <div className=" flex items-center justify-center align-middle">
+                <img className=" font-bold  " src="/assets/icons/salon.png" />
+              </div>
+              <div className=" flex flex-col gap-3">
+                <p className=" font-extrabold text-2xl">Cuts</p>
+                <p className=" text-gray-600 text-sm">
+                  Haircut and styling tailored to the client's preferences,
+                  using various cutting techniques and tools for a personalized
+                  look.
+                </p>
+              </div>
             </div>
-            <div className=" flex flex-col gap-3">
-              <p className=" font-extrabold text-2xl">Fades</p>
-              <p className=" text-gray-600 text-sm">
-              Specialized haircutting technique creating a smooth transition from shorter to longer hair, offering modern and stylish fades customized to the client's style.
-              </p>
+            {/* -- */}
+            <div className=" flex gap-6">
+              <div className=" flex items-center justify-center align-middle">
+                <img className=" font-bold  " src="/assets/icons/clipper.png" />
+              </div>
+              <div className=" flex flex-col gap-3">
+                <p className=" font-extrabold text-2xl">Fades</p>
+                <p className=" text-gray-600 text-sm">
+                  Specialized haircutting technique creating a smooth transition
+                  from shorter to longer hair, offering modern and stylish fades
+                  customized to the client's style.
+                </p>
+              </div>
             </div>
-          </div>
-          {/* -- */}
-          <div className=" flex gap-6">
-            <div className=" flex items-center justify-center align-middle">
-              <img  className=" font-bold  " src="/assets/icons/razor.png" />
-            </div>
-            <div className=" flex flex-col gap-3">
-              <p className=" font-extrabold text-2xl">Shaves</p>
-              <p className=" text-gray-600 text-sm">
-              Precise and comfortable shaving experience using traditional razors, providing a close and smooth shave or beard trim for a polished appearance.
-              </p>
+            {/* -- */}
+            <div className=" flex gap-6">
+              <div className=" flex items-center justify-center align-middle">
+                <img className=" font-bold  " src="/assets/icons/razor.png" />
+              </div>
+              <div className=" flex flex-col gap-3">
+                <p className=" font-extrabold text-2xl">Shaves</p>
+                <p className=" text-gray-600 text-sm">
+                  Precise and comfortable shaving experience using traditional
+                  razors, providing a close and smooth shave or beard trim for a
+                  polished appearance.
+                </p>
+              </div>
             </div>
           </div>
         </div>

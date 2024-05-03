@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import { FaStar } from "react-icons/fa";
 // import authentication service
 import { register, login } from "../../services/authentication";
-import Header from "@/app/components/Home/Header";
 
 const page = () => {
   const [switcher, setSwitcher] = useState(false);
@@ -139,8 +138,7 @@ const page = () => {
   };
   return (
     <>
-      <Header />
-      <div className="  py-12 px-2 scale-100 overflow-hidden login ">
+      <div className="  py-12 mx-2 scale-100 overflow-hidden  ">
         <div className=" py-12 px-2 flex flex-col gap-1 ">
           <div className=" flex gap-2 ">
             <FaStar className=" text-[#91765a] " />
@@ -164,7 +162,7 @@ const page = () => {
           </div>
         </div>
         <div class="shadow-xl rounded-md py-12 relative px-3 ">
-          <div class="absolute rounded-lg inset-0 bg-gray-300 opacity-15 filter backdrop-blur-lg"></div>
+          <div class="absolute rounded-lg inset-0 bg-[#141a29] opacity-85 filter backdrop-blur-lg"></div>
 
           {/* ----------------login----------------- */}
           <div
