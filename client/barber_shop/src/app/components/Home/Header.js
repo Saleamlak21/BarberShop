@@ -5,8 +5,19 @@ import Link from "next/link";
 const Header = () => {
   const [topZero, setTopZero] = useState(true);
   const [show, setShow] = useState(false);
+  const [path, setPath] = useState(false);
 
+  // get the path
+ 
+//   console.log(pathName);
   useEffect(() => {
+    const pathName = window.location.pathname;
+    if (pathName === "/") {
+      setPath(true);
+    } else {
+        setPath(false);
+    }
+
     const handleScroll = () => {
       if (window.scrollY > 100) {
         // after 1000ms setTopZero to false
@@ -26,18 +37,20 @@ const Header = () => {
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, []);
-  console.log(topZero);
+  }, [ topZero]);
+//   console.log(topZero);
+  
+ 
 
   return (
     <>
       <div
-        className={`w-full   z-[999] flex justify-center p-2 py-4 sticky top-0 transition duration-[1200ms]   bg-${
-          topZero === true ? "none" : "black"
-        } `}
+        className={`w-full  z-50  flex justify-center p-2 py-4 sticky top-0 transition duration-[1200ms]   ${
+          topZero && path ? " bg-none border-b duration-[3000ms] border-transparent" : "bg-black"
+        }  `}
       >
-        <div className="w-full md:w-10/12 z-50 flex justify-between p-2 py-4 sticky top-0 ">
-          <Link href="/" className=" flex gap-2 ">
+        <div className="w-full md:w-10/12  z-[999] flex justify-between p-2 py-4 sticky top-0 ">
+          <Link href="/" className=" flex gap-2  z-[999]">
             <div>
               <img className=" h-14" src="/assets/icons/salon.png" />
             </div>
@@ -111,7 +124,7 @@ const Header = () => {
       </div>
       {/* mobile bar */}
       <div
-        className={` sticky top-0 left-0 z-50 -mt-32 duration-1000 transition  flex md:hidden ${
+        className={` sticky top-0 left-0 z-20 -mt-32 duration-1000 transition  flex md:hidden ${
           show === false ? " -translate-y-[450px]" : "translate-y-0"
         }  `}
       >

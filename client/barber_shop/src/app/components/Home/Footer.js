@@ -63,7 +63,7 @@ const Footer = () => {
           &copy; 2024 Mamush Barber. All rights reserved.
         </p>
         <p className="text-xs mdtext-sm">
-            Developed by <a href="https://saleamlakendrias.com/" className="text-[#97836c] cursor-pointer z-10 text-sm md:text-base font-bold ">SaleamlakE</a>
+            Developed by <a href="https://saleamlakendrias.com/" className="text-[#97836c] cursor-pointer z-10 text-sm md:text-base font-bold ">Saleamlak-E</a>
         </p>
       </div>
     </div>

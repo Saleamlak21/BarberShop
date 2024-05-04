@@ -4,7 +4,7 @@ const Card = ({ image, title, discription }) => {
   return (
     <div className=" relative rounded-lg my-3 mx-2 bg-[#fff] border-[0.2px] shadow-lg border-gray-300  text-white group   md:hover:scale-105 duration-300 transition ">
       <div className=" absolute inset-1 opacity-20  flex justify-end items-end  ">
-        <img className=" h-32 md:h-40 md:group-hover:scale-125 duration-300 bg-slate-50" src="/assets/icons/hairdress.png" />
+        <img className=" h-32 md:h-40 md:group-hover:scale-125 duration-300" src="/assets/icons/hairdress.png" />
       </div>
       <div className=" z-10  p-6 md:p-10 flex flex-col gap-2 md:gap-4 ">
         <div className=" flex items-center gap-4">

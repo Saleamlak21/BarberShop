@@ -23,6 +23,7 @@ export default function RootLayout({ children }) {
         <Header />
         <main>{children}</main>
         <Footer />
+        <script src="https://static-bundles.visme.co/forms/vismeforms-embed.js"></script>
       </body>
     </html>
   );

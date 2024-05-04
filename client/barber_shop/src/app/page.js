@@ -50,15 +50,6 @@ export default function Home() {
       <search id="contact">
         <ContactUs />
       </search>
-      
-
-      {/* <AboutUs id="about" />     
-    <BottomHero />
-    <OurService id="services" />
-    <MakeAppointmetn />
-    <Pricing id="Pricing" />
-    <Testemonial />
-    <ContactUs id="contact" /> */}
     </main>
   );
 }
