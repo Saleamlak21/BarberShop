@@ -114,16 +114,24 @@ const page = () => {
         // decode the token to get the user data
         const user = JSON.parse(atob(response.token.split(".")[1]));
         console.log(user);
-        // clear the form
-        setLoginEmail("");
-        setLoginPassword("");
 
-        if (user.user_role !== 3) {
-          // redirect to home page
-          window.location.href = "/";
-        } else {
-          // redirect to admin page
+        // Redirect the user based on roles
+        if (user.user_role === 3) {
+          setLoginEmail("");
+          setLoginPassword("");
+          //set isAdmin true in local storage
+          localStorage.setItem("isAdmin", true);
+          //set isLogged true in local storage
+          localStorage.setItem("isLogged", true);
+
           window.location.href = "/pages/admin/admin-dashboard";
+        } else {
+          //set isAdmin false in local storage
+          localStorage.setItem("isAdmin", false);
+          //set isLogged true in local storage
+          localStorage.setItem("isLogged", true);
+
+          window.location.href = "/";
         }
       } else {
         if (response.code === "INVALID_EMAIL") {
@@ -141,31 +149,7 @@ const page = () => {
   return (
     <>
       <div className=" relative bg-slate-200   scale-100 overflow-hidden  ">
-        {/* <div className=" py-12 px-2 flex flex-col gap-1 ">
-          <div className=" flex gap-2 ">
-            <FaStar className=" text-[#91765a] " />
-            <FaStar className=" text-[#91765a] " />
-            <FaStar className=" text-[#91765a] " />
-            <FaStar className=" text-[#91765a] " />
-            <FaStar className=" text-[#91765a] " />
-          </div>
-          <p className=" text-white text-3xl font-bold  pt-3 ">
-            We Are Best Barbers & Hair{" "}
-          </p>
-          <p className=" text-white text-3xl font-bold  ">
-            Cutting Salon at ATL.
-          </p>
-          <div className=" my-4 flex  text-white">
-            <img className=" h-16 font-bold" src="/assets/icons/razor.png" />
-            <div className="flex flex-col mx-4">
-              <p className=" font-bold  text-[#91765a]">APPOINTMENT</p>
-              <p className=" text-2xl font-bold">855 555 5555</p>
-            </div>
-          </div>
-        </div> */}
         <div class=" shadow-xl rounded-md py-12 px-3 ">
-          {/* <div class="absolute rounded-lg inset-0 bg-[#141a29] opacity-85 filter backdrop-blur-lg"></div> */}
-
           {/* ----------------login----------------- */}
           <div
             class={` relative shadow-md md:w-10/12 transition duration-300  z-10  bg-white rounded-2xl  m-auto my- rounded-ss-3xl  `}
@@ -181,9 +165,11 @@ const page = () => {
             {/* -----------------login form----------------- */}
             <div className=" relative z-20 rounded-3xl mt-24 md:mt-auto  flex flex-col md:flex-row justify-center  gap-2">
               {/* --side div---- */}
-              <div className={` relative flex md:h-auto gap-8 transition duration-[1500ms]  justify-center items-center m-3 rounded-lg -z-20     md:w-1/2 h-44 
+              <div
+                className={` relative flex md:h-auto gap-8 transition duration-[1500ms]  justify-center items-center m-3 rounded-lg -z-20     md:w-1/2 h-44 
             ${switcher ? " md:translate-x-full" : "block"}
-              `}>
+              `}
+              >
                 <div className=" absolute inset-0 bg-gray-900 opacity-25 rounded-2xl -z-30"></div>
 
                 <div className="absolute md:top-20 w-full flex  justify-center ">
@@ -209,7 +195,11 @@ const page = () => {
                 </div>
               </div>
               {/* -----form----- */}
-              <div className={` m-4 md:mt-4 flex transition duration-[1500ms] -z-50 flex-col justify-start align-top  md:w-1/2 pb-16 ${switcher ? " md:-translate-x-full" : "block"} `}>
+              <div
+                className={` m-4 md:mt-4 flex transition duration-[1500ms] -z-50 flex-col justify-start align-top  md:w-1/2 pb-16 ${
+                  switcher ? " md:-translate-x-full" : "block"
+                } `}
+              >
                 <p className=" text-2xl font-bold text-gray-700 mb-3 mt-8 ">
                   Hello, Again
                 </p>
@@ -217,10 +207,15 @@ const page = () => {
                   We are happy to see you again. Please login to your account.
                 </p>
                 {/* form login */}
-                <div className={` transition duration-1000
+                <div
+                  className={` transition duration-1000
                 ${switcher ? "hidden" : "block"}
-                `}>
-                  <form onSubmit={loginUser} className=" flex flex-col gap-0 mx-3 ">
+                `}
+                >
+                  <form
+                    onSubmit={loginUser}
+                    className=" flex flex-col gap-0 mx-3 "
+                  >
                     {emailError && (
                       <p className="text-red-400 text-xs italic">
                         {emailError}
@@ -292,9 +287,11 @@ const page = () => {
                   </p>
                 </div>
                 {/* register form */}
-                <div className={`  duration-1000 transition-opacity
+                <div
+                  className={`  duration-1000 transition-opacity
                 ${switcher ? "block" : " hidden "}
-                `}>
+                `}
+                >
                   <form
                     className=" flex flex-col justify-center mx-3 gap-2 -mt-7 "
                     onSubmit={registerUser}

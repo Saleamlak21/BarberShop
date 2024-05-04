@@ -75,7 +75,7 @@ async function userLogin(req, res) {
     } else {
       const payLoad = {
         user_id: login.user.user_id,
-        user_email: login.user.user_email,
+        user_name: login.user.user_name,
         user_role: login.user.user_role_id,
       };
       // If the login is successful, create a token for the user
