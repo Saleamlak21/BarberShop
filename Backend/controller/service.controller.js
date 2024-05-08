@@ -1,7 +1,7 @@
 // import service sercice
 const service = require("../services/service.service");
 
-// create a function to create a service
+// create a function to create a service 
 async function createService(req, res) {
   // Get the data from the request body
   const data = req.body;

@@ -105,15 +105,18 @@ const page = () => {
     setLoginError("");
     try {
       const response = await login(loginData);
+      
+      if (!response) {
+        setLoginError("Something went wrong, please try again later");
+        return;
+      }
 
       if (response.status === "true") {
-        console.log(response);
         // set the user data to the local storage
         localStorage.setItem("user", JSON.stringify(response.token));
 
         // decode the token to get the user data
         const user = JSON.parse(atob(response.token.split(".")[1]));
-        console.log(user);
 
         // Redirect the user based on roles
         if (user.user_role === 3) {
@@ -131,7 +134,7 @@ const page = () => {
           //set isLogged true in local storage
           localStorage.setItem("isLogged", true);
 
-          window.location.href = "/";
+          window.location.href = "/pages/Customers"; 
         }
       } else {
         if (response.code === "INVALID_EMAIL") {
