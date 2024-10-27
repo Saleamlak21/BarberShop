@@ -11,6 +11,25 @@ import ContactUs from "./components/Home/ContactUs";
 import Testemonial from "./components/Home/Testemonial";
 import { useEffect } from "react";
 import smoothScrollIntoView from 'smooth-scroll-into-view-if-needed';
+// import customerService from "../../services/customer.service";
+
+
+// useEffect(() => {
+//     // 'use strict'
+//     const fetchCustomers = async () => {
+//       try {
+//         const customers = await customerService.getCustomers();
+//         if (customers.status === 200) {
+//           setUsersData(customers.data);
+//         }
+//       } catch (error) {
+//         console.error("Error fetching customers:", error);
+//       }
+//     };
+//     fetchCustomers();
+//   }, []);
+//     console.log(usersData);
+
 
 export default function Home() {
 
