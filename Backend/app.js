@@ -1,39 +1,25 @@
 // Importing necessary modules
 const express = require("express");
 const cors = require("cors");
-const http = require("http");
-// Import the dotenv module and call the config method to load the environment variables
-require("dotenv").config();
-// import server from socket.io
-const { Server } = require("socket.io");
-// Import the sanitizer module
-const sanitize = require("sanitize");
-// Importing the routes
-const router = require("./routes/index");
+const bodyParser = require('body-parser'); // Optional if you're using express.json() and express.urlencoded()
+require("dotenv").config(); // Load environment variables
+const router = require("./routes/index"); // Importing the routes
 
 // Creating an express app
 const app = express();
-// Using cors
-app.use(cors());
-// Creating a server
-const server = http.createServer(app);
-// Creating an instance of socket.io
-const io = new Server(server, {
-  cors: {
-    // allow all origins
-    origin: "*",
-  },
-});
-// Add the express.json middleware to the application
-app.use(express.json());
-// add sanitization middleware
-app.use(sanitize.middleware);
 
-// add the routes to the app
+// Using CORS 
+app.use(cors());
+
+// Set up body-parser middleware
+app.use(bodyParser.json()); // Parse JSON data
+app.use(bodyParser.urlencoded({ extended: true })); // Parse URL-encoded data
+
+// Add the routes to the app
 app.use(router);
 
-// app listening on port 3001
-server.listen(3001, () => {
+// App listening on port 3001
+app.listen(3001, () => {
   console.log("Server is running on port 3001");
 });
 

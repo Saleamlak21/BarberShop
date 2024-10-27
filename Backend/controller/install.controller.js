@@ -6,7 +6,7 @@ async function install(req, res) {
   // call the install function from the install service
   const installMessage = await installService.install();
   
-  // check if the installation is successful
+  // check if the installation is successfu
   if (installMessage.status === 200) {
     // If successful, send a response to the client
     res.status(200).json({
